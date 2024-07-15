@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "./Navbar.css";
+import { usePoints } from './pointsContext';
+import { useAuth } from './AuthContext';
+
+import { useCart } from './CartContext';
 // import { SearchIcon } from "@chakra-ui/icons";
 
 const Div = styled.nav`
@@ -10,34 +14,73 @@ const Div = styled.nav`
   width: 100%;
   /* height: 70px; */
   top: 0;
-  margin-left: 5%;
   right: 0;
   z-index: 1;
   align-items: center;
   background-color: #ffffff;
 `;
+const LinksContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 3%;
+`;
+
+const StyledLink = styled(Link)`
+  font-weight: bold;
+  font-size: 17px;
+  text-decoration: none;
+  color: #282c3f;
+  padding-bottom: 25px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: -2%;
+`;
+const CartIcon = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  position: relative;
+  cursor: pointer;
+
+  .cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 12px;
+  }
+`;
+const alert=()=>{
+  window.alert("Please Login To Access It.....")
+}
 
 export const Navbar = () => {
+  const { cartItems } = useCart();
+  const { points } = usePoints();
+  const { isAuthenticated, logout } = useAuth();
+  
   return (
     <>
       <Div>
-        <img
-          style={{
-            width: "4%",
-            height: "40px",
-            marginLeft: "2%",
-            marginRight: "2%",
-          }}
-          src="https://images.news18.com/ibnlive/uploads/2021/01/1611996262_ynt.jpeg?im=FitAndFill,width=1200,height=900"
-          alt="" 
-        />
+          <img
+            style={{
+              width: "4%",
+              height: "40px",
+              marginLeft: "2%",
+              marginRight: "2%",
+            }}
+            src="https://images.news18.com/ibnlive/uploads/2021/01/1611996262_ynt.jpeg?im=FitAndFill,width=1200,height=900"
+            alt="" 
+          />
         
-      
         <div className="link1">
           <Link
             className="link"
             style={{
-              marginLeft: "3%",
+              marginLeft: "2%",
               fontWeight: "bold",
               fontSize: "17px",
               textDecoration: "none",
@@ -730,7 +773,7 @@ export const Navbar = () => {
           </div>
         </div>
 
-        <h4 className="nw">NEW</h4>
+        
 
         <div className="inp1">
         
@@ -740,47 +783,46 @@ export const Navbar = () => {
             placeholder="Search for products, brands and more"
           />
         </div>
-
-        <p style={{ marginLeft: "4%" }}>
-          <img
-            style={{ marginLeft: "15%", fontSize: "8px" }}
-            src="https://img.icons8.com/material-outlined/24/000000/gender-neutral-user.png"
-            alt=""
-          />
-          <br></br>
-          <span> <a className="loginlink" href="/login">Login</a></span>
-        </p>
-
-        <p style={{ marginLeft: "2%" }}>
-          <img
-            style={{ marginLeft: "25%" }}
-            src="https://img.icons8.com/material-outlined/24/000000/like--v1.png"
-            alt=""
-          />
-          <br></br>
-          <span>Wishlist</span>
-        </p>
-
-        <Link
-          style={{
-            marginLeft: "2%",
-            fontSize: "15px",
-            textDecoration: "none",
-            color: "#282C3F",
-          }}
-          to="/cart/:id"
-        >
-          {" "}
-          <p>
-            <img
-              style={{ marginLeft: "3%" }}
-              src="https://img.icons8.com/material-outlined/24/000000/shopping-bag--v1.png"
-              alt=""
-            />
-            <br></br>
-            <span>Bag</span>
-          </p>
-        </Link>
+        
+        <div className="link1">
+                {isAuthenticated ? (
+                    <StyledLink to="/" onClick={logout}>Logout</StyledLink>
+                ) : (
+                    <StyledLink to="/login">Login</StyledLink>
+                )}
+            </div>
+            <div >
+                {isAuthenticated ? (
+                    <StyledLink to="/Coins">Coins:{points}</StyledLink>
+                ) : (
+                    <StyledLink to="/login" onClick={alert}>Coins</StyledLink>
+                )}
+            </div>
+            <div >
+                {isAuthenticated ? (
+                    <StyledLink to="/cart">Cart</StyledLink>
+                ) : (
+                  <StyledLink to="/login" onClick={alert}>Cart</StyledLink>
+                )}
+            </div>
+            
+            <div >
+                {isAuthenticated ? (
+                    <StyledLink as="a" href="http://localhost:8000" target="_blank" rel="noopener noreferrer">VTON</StyledLink>
+                ) : (
+                    <StyledLink to="/login" onClick={alert}>VTON</StyledLink>
+                    
+                )}
+            </div>
+            <h4 className="nw">NEW</h4>
+            <div >
+                {isAuthenticated ? (
+                    <StyledLink to="/reels">Reels</StyledLink>
+                ) : (
+                  <StyledLink to="/login" onClick={alert}>Reels</StyledLink>
+                )}
+            </div>
+            <h4 className="nw">NEW</h4>
       </Div>
     </>
   );

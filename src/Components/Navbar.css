@@ -1,6 +1,6 @@
 .inp {
     height: 35px;
-    width: 550px;
+    width: 500px;
     background-color: rgb(245, 245, 246);
     border: none;
     border-radius: 5px;
@@ -13,6 +13,69 @@
   color:black;
   font-weight: lighter;
 }
+.link1 {
+  position: relative;
+}
+.link1 {
+  position: relative;
+}
+
+.ddown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.link1:hover .ddown {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.a1, .a2 {
+  padding: 10px;
+}
+
+.ddown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.link1:hover .ddown {
+  display: block;
+}
+
+.ddown .flex {
+  display: flex;
+}
+
+.a1,
+.a2 {
+  padding: 15px;
+}
+
+.nextul {
+  margin-top: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 5px 0;
+}
+
   .inp1 {
     background-color: rgb(245, 245, 246);
     display: flex;

@@ -1,33 +1,38 @@
 import './App.css';
-import {Navbar} from './Components/Navbar';
-import {Home} from './Components/Home';
-import {Products} from './Components/Product'
+import { Navbar } from './Components/Navbar';
+import { Home } from './Components/Home';
+import { Products } from './Components/Product';
 import { Route, Routes } from 'react-router-dom';
 import { ProductDetails } from './Components/ProductDetails';
-import { Cart } from './Components/Cart';
+import  Cart  from './Components/Cart';
 import Login from './Components/login';
-import Done  from './Components/Done';
-
+import Done from './Components/Done';
+import Coins from './Components/coins';
+import { PointsProvider } from './Components/pointsContext';
+import { AuthProvider } from './Components/AuthContext';
+import { CartProvider } from './Components/CartContext';
+import Reels from './Components/reels';
 function App() {
-
-  return (
- <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home/>}></Route>
-        <Route path="/products" element={<Products/>}></Route>
-        <Route path="/products/:id" element={<ProductDetails />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/cart/:id" element={<Cart />}></Route>
-        <Route path="/done" element={<Done />}>
-         {/* {this.state.isAlertOpen ? <alert /> : null} */}
-        </Route>
-
-      </Routes>
-    </>
-  );
+    return (
+        <PointsProvider>
+            <CartProvider>
+            <AuthProvider>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/products" element={<Products />} />
+                        <Route path="/products/:id" element={<ProductDetails />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/cart" element={<Cart />} />
+                        <Route path="/done" element={<Done />} />
+                        <Route path="/coins" element={<Coins />} />
+                        <Route path="/reels" element={<Reels />} />
+                    </Routes>
+                    </AuthProvider>
+                </CartProvider>
+            
+        </PointsProvider>
+    );
 }
 
 export default App;
-
-
